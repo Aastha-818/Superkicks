@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Superkicks Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Work+Sans:wght@300..700&display=swap">
+<!--
+  Reference map
+  Layout skeleton ............ client's reference (Pagerie): full-bleed hero + centred wordmark, 4-up product rows,
+                               collection panel beside lifestyle photo, press-style statement, journal block,
+                               closing product/lifestyle pair, four-column light footer.
+  Announcement + two-tier nav  Awwwards e-commerce winners (Killstar, Unimatic): utility bar, centred logo, category row.
+  Drag rails ................. Pinterest-pinned sneaker stores: horizontally scrolling "just dropped" shelves.
+  Ranked list + cursor image . Behance fashion case studies: numbered list, photo follows the pointer.
+  Hover angle swap ........... Awwwards e-commerce: second product angle on hover.
+  Signature move ............. every photograph is uncovered by a Superkicks-red shutter.
+-->
+<style>
+:root{
+  --paper:#fbfbfa;
+  --tile:#f4f4f3;
+  --panel:#f1f0ee;
+  --ink:#141413;
+  --ink-80:rgba(20,20,19,.8);
+  --ink-55:rgba(20,20,19,.55);
+  --ink-35:rgba(20,20,19,.35);
+  --rule:rgba(20,20,19,.12);
+  --red:#e22120;
+  --snow:#f7f6f2;
+  --logo:"Archivo","Arial Black",Arial,sans-serif;
+  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --sans:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --gut:clamp(16px,2.6vw,40px);
+  --max:1440px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --wipe:cubic-bezier(.76,0,.24,1);
+  --hdr:118px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+em,i,cite,address,dfn,var{font-style:normal}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+::selection{background:var(--red);color:var(--snow)}
+:focus-visible{outline:1.5px solid var(--red);outline-offset:3px}
+.shell{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
+.label{font:600 11px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.muted{color:var(--ink-55)}
+.arrow{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--ink-55);transition:color .3s,gap .4s var(--ease);background:none;border:0;padding:0;cursor:pointer}
+.arrow:hover{color:var(--ink);gap:10px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- announcement bar ---------- */
+.ann{background:var(--red);color:var(--snow);font:500 11.5px/1 var(--sans);letter-spacing:.06em;height:34px;overflow:hidden;position:relative}
+.ann .track{display:flex;width:max-content;animation:annmarq 40s linear infinite;height:100%;align-items:center}
+.ann:hover .track{animation-play-state:paused}
+.ann span{padding-inline:28px;white-space:nowrap}
+.ann span.d{padding:0;opacity:.6}
+@keyframes annmarq{to{transform:translate3d(-50%,0,0)}}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:40;background:rgba(251,251,250,.97);border-bottom:1px solid var(--rule);transition:box-shadow .4s var(--ease)}
+.hdr.scrolled{box-shadow:0 1px 0 var(--rule),0 10px 30px -18px rgba(20,20,19,.25)}
+.hdr .row1{max-width:var(--max);margin-inline:auto;padding:14px var(--gut) 10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;transition:padding .45s var(--ease)}
+.hdr.scrolled .row1{padding-block:9px 6px}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--rule);padding:8px 12px;max-width:260px;font-size:12px;color:var(--ink-55);cursor:text;transition:border-color .3s}
+.search:hover{border-color:var(--ink-35)}
+.search input{border:0;background:none;outline:none;min-width:0;width:100%;font-size:12px;color:var(--ink)}
+.logo{display:block;font:900 30px/1 var(--logo);font-variation-settings:"wdth" 125;letter-spacing:.01em;text-transform:uppercase;transition:font-size .45s var(--ease)}
+.hdr.scrolled .logo{font-size:24px}
+.logo .dot{color:var(--red)}
+.icons{display:flex;justify-content:flex-end;gap:18px;align-items:center;font-size:12px;font-weight:500}
+.icons button,.icons a{background:none;border:0;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.icons svg{width:18px;height:18px}
+.icons .count{background:var(--ink);color:var(--snow);min-width:18px;height:18px;border-radius:9px;display:inline-grid;place-items:center;font-size:10px;padding-inline:5px;transition:transform .4s var(--ease),background .3s}
+.icons .count.bump{transform:scale(1.35);background:var(--red)}
+.row2{max-width:var(--max);margin-inline:auto;padding:0 var(--gut);display:flex;justify-content:center;gap:clamp(14px,2vw,30px);font:600 11.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;overflow-x:auto;scrollbar-width:none}
+.row2::-webkit-scrollbar{display:none}
+.row2 a{position:relative;padding:12px 0 13px;white-space:nowrap;color:var(--ink-80);transition:color .25s}
+.row2 a::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.row2 a:hover,.row2 a.on{color:var(--ink)}
+.row2 a:hover::after,.row2 a.on::after{transform:scaleX(1);transform-origin:left}
+.row2 a.sale{color:var(--red)}
+.row2 a.sale::after{background:var(--red)}
+.menu-btn{display:none;background:none;border:0;padding:0;cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:860px){
+  .search{display:none}.menu-btn{display:block}
+  .hdr .row1{grid-template-columns:auto 1fr auto}.logo{justify-self:center;font-size:22px}.hdr.scrolled .logo{font-size:20px}
+  .icons .lbl{display:none}
+  .row2{justify-content:flex-start}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:calc(100svh - 152px);min-height:520px;max-height:860px;overflow:hidden;background:#3c4048}
+.hero img{position:absolute;inset:0;width:100%;height:115%;object-fit:cover;object-position:60% 62%;filter:saturate(.88) contrast(1.03);scale:1.12;transition:scale 2.4s var(--ease);will-change:transform}
+.loaded .hero img{scale:1.02}
+.wordmark{position:absolute;left:0;right:0;top:46%;text-align:center;color:var(--snow);font:400 clamp(2.4rem,14.2vw,15rem)/.82 var(--serif);letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap;pointer-events:none;margin:0;transform:translate3d(0,-50%,0);will-change:transform,opacity}
+.wordmark span{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.04em}
+.wordmark span b{display:inline-block;font-weight:400;transform:translate3d(0,105%,0);transition:transform 1.1s var(--wipe)}
+.loaded .wordmark span b{transform:none}
+.hero .tag{position:absolute;left:50%;bottom:clamp(22px,4vw,44px);transform:translateX(-50%);width:min(460px,calc(100% - 32px));text-align:center;color:var(--snow);font-size:12.5px;line-height:1.5;opacity:0;transition:opacity 1s .9s}
+.hero .tag a{display:inline-block;margin-top:12px;border-bottom:1px solid currentColor;padding-bottom:2px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+.loaded .hero .tag{opacity:1}
+@media (max-width:760px){.hero{height:74svh}.hero img{object-position:68% 70%}}
+
+/* ---------- shutter reveal (composited: transform + opacity only) ---------- */
+.sh{position:relative;overflow:hidden}
+.sh::after{content:"";position:absolute;inset:0;background:var(--red);transform:scaleY(0);transform-origin:bottom;z-index:2;pointer-events:none;will-change:transform}
+.js .sh>img,.js .sh>.imgs{opacity:0}
+.sh.go::after{animation:shutter 1.05s var(--wipe) forwards}
+.sh.go>img,.sh.go>.imgs{animation:appear .01s linear .5s forwards}
+@keyframes shutter{0%{transform:scaleY(0);transform-origin:bottom}46%{transform:scaleY(1);transform-origin:bottom}54%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:top}}
+@keyframes appear{to{opacity:1}}
+.js .up{opacity:0;transform:translate3d(0,20px,0)}
+.up{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.up.go{opacity:1;transform:none}
+
+/* ---------- scaffolding ---------- */
+section{padding-block:clamp(56px,6.5vw,96px) 0}
+.title{text-align:center;margin:0 0 clamp(22px,3vw,36px)}
+.title h2{margin:0;font:600 13px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.title p{margin:8px auto 0;max-width:48ch;color:var(--ink-55);font-size:13px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,30px)}
+.head h2{margin:0;font:500 clamp(2rem,4.2vw,3.6rem)/.95 var(--serif);letter-spacing:-.015em}
+.head h2 small{display:block;font:600 11px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);margin-bottom:12px}
+.center{text-align:center;margin-top:clamp(20px,2.4vw,30px)}
+.idx{font:500 11px/1 var(--sans);letter-spacing:.14em;color:var(--ink-35)}
+
+/* ---------- product card ---------- */
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.3vw,18px)}
+.grid6{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,1vw,14px)}
+@media (max-width:1000px){.grid6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:860px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grid6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.prod{min-width:0;display:flex;flex-direction:column;gap:10px}
+.prod .sh{background:var(--tile);aspect-ratio:9/10}
+.imgs{position:absolute;inset:0}
+.imgs img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:9%;mix-blend-mode:multiply;transition:opacity .6s var(--ease),transform .9s var(--ease)}
+.imgs img.b{opacity:0;transform:scale(1.04)}
+@media (hover:hover){.prod:hover .imgs img.a{opacity:0;transform:scale(.97)}.prod:hover .imgs img.b{opacity:1;transform:scale(1)}}
+.badge{position:absolute;left:10px;top:10px;z-index:3;font:600 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;background:var(--paper);padding:6px 7px}
+.badge.red{background:var(--red);color:var(--snow)}
+.wish{position:absolute;right:8px;top:8px;z-index:3;width:30px;height:30px;display:grid;place-items:center;background:none;border:0;cursor:pointer;color:var(--ink-55);transition:color .2s,transform .4s var(--ease)}
+.wish svg{width:16px;height:16px}
+.wish[aria-pressed="true"]{color:var(--red);transform:scale(1.12)}
+.wish[aria-pressed="true"] svg path{fill:currentColor}
+.quick{position:absolute;left:8px;right:8px;bottom:8px;z-index:3;background:var(--paper);padding:10px;transform:translate3d(0,calc(100% + 12px),0);transition:transform .55s var(--ease)}
+.prod:hover .quick,.prod:focus-within .quick{transform:none}
+.quick .k{display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px}
+.sizes{display:flex;flex-wrap:wrap;gap:3px}
+.sizes button{flex:1 0 30px;border:1px solid var(--rule);background:none;padding:7px 0;font-size:11px;cursor:pointer;font-variant-numeric:tabular-nums;transition:background .2s,color .2s,border-color .2s}
+.sizes button:hover{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+.meta{font-size:12px;line-height:1.4}
+.meta .v{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-55);margin-bottom:2px}
+.meta .n{display:block}
+.meta .c{display:block;color:var(--ink-55);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta .p{display:block;margin-top:4px;font-variant-numeric:tabular-nums}
+.meta .p s{color:var(--ink-35);margin-left:6px}
+.meta .p b{color:var(--red);font-weight:500;margin-left:6px}
+.plus{display:none}
+@media (hover:none),(max-width:860px){
+  .quick{display:none}
+  .plus{display:grid;position:absolute;right:8px;bottom:8px;z-index:3;width:30px;height:30px;place-items:center;background:var(--paper);border:0;font-size:18px;line-height:1;cursor:pointer}
+}
+
+/* ---------- rail ---------- */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(220px,23vw,330px);gap:clamp(10px,1.3vw,18px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;cursor:grab;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{display:none}
+.rail.drag{cursor:grabbing;scroll-snap-type:none}
+.rail.drag *{pointer-events:none}
+.rail .prod{scroll-snap-align:start}
+.railbar{display:flex;align-items:center;gap:14px;margin-top:18px}
+.prog{flex:1;height:1px;background:var(--rule);position:relative;overflow:hidden}
+.prog i{position:absolute;left:0;top:0;bottom:0;width:30%;background:var(--ink);will-change:transform}
+.navbtn{width:38px;height:38px;border:1px solid var(--rule);background:none;cursor:pointer;display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
+.navbtn:hover{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+.navbtn svg{width:14px;height:14px}
+.rail.big{grid-auto-columns:clamp(260px,31vw,440px)}
+
+/* ---------- categories ---------- */
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.3vw,18px)}
+@media (max-width:860px){.cats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cat{position:relative;background:var(--panel);aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:space-between;padding:16px;overflow:hidden}
+.cat img{position:absolute;left:8%;right:8%;top:24%;width:84%;mix-blend-mode:multiply;transition:transform 1s var(--ease)}
+.cat:hover img{transform:translate3d(0,-6px,0) rotate(-6deg) scale(1.05)}
+.cat h3{margin:0;font:500 clamp(1.5rem,2.6vw,2.4rem)/1 var(--serif);position:relative;z-index:1}
+.cat .go{position:relative;z-index:1;display:flex;justify-content:space-between;font-size:12px;border-top:1px solid var(--rule);padding-top:10px}
+
+/* ---------- collection split ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.3vw,18px)}
+.split .panel{background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding:clamp(28px,4vw,52px) clamp(18px,3vw,40px);min-height:clamp(420px,46vw,640px)}
+.split .panel h3{margin:0;font:600 13px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.split .panel .obj{width:min(78%,420px);margin-block:24px}
+.split .panel .obj img{width:100%;mix-blend-mode:multiply;transition:transform 1.2s var(--ease)}
+.split .panel:hover .obj img{transform:translate3d(0,-6px,0) rotate(-3deg)}
+.split .panel p{margin:0 auto 6px;max-width:34ch;font-size:12.5px;color:var(--ink-80)}
+.split .photo{min-height:clamp(420px,46vw,640px);background:#9a9a96}
+.split .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.03);transition:transform 1.6s var(--ease)}
+.split .photo:hover img{transform:scale(1.035)}
+.split .photo .cap{position:absolute;left:14px;bottom:12px;z-index:3;color:var(--snow);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.split.rev .panel{order:2}
+.split .minis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;margin-top:18px}
+.split .minis a{background:var(--paper);aspect-ratio:1;display:grid;place-items:center;padding:8px;transition:transform .5s var(--ease)}
+.split .minis a:hover{transform:translate3d(0,-4px,0)}
+.split .minis img{mix-blend-mode:multiply}
+@media (max-width:760px){.split{grid-template-columns:1fr}.split .panel,.split .photo{min-height:auto}.split .photo{aspect-ratio:4/5}.split.rev .panel{order:0}}
+
+/* ---------- trending ranked list ---------- */
+.rank{border-top:1px solid var(--ink)}
+.rank a{display:grid;grid-template-columns:70px 1.4fr 1fr 120px 24px;gap:16px;align-items:center;padding:clamp(14px,1.8vw,22px) 0;border-bottom:1px solid var(--rule);transition:padding .5s var(--ease),color .3s}
+.rank a:hover{padding-left:14px}
+.rank .no{font:500 13px/1 var(--sans);font-variant-numeric:tabular-nums;color:var(--ink-35)}
+.rank .nm{font:500 clamp(1.3rem,2.4vw,2.2rem)/1.05 var(--serif)}
+.rank .cw{font-size:12px;color:var(--ink-55)}
+.rank .pr{text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
+.rank .ar{transition:transform .4s var(--ease)}
+.rank a:hover .ar{transform:translate3d(6px,0,0)}
+.rank .th{display:none}
+.float{position:fixed;left:0;top:0;width:260px;aspect-ratio:1;background:var(--tile);pointer-events:none;z-index:30;opacity:0;transform:translate3d(-50%,-50%,0) scale(.85);transition:opacity .3s,scale .4s var(--ease);will-change:transform}
+.float.on{opacity:1}
+.float img{width:100%;height:100%;object-fit:contain;padding:10%;mix-blend-mode:multiply}
+@media (max-width:860px),(hover:none){
+  .float{display:none}
+  .rank a{grid-template-columns:56px 1fr auto;gap:12px}
+  .rank .no{display:none}.rank .th{display:block;background:var(--tile);aspect-ratio:1}
+  .rank .th img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;padding:4px}
+  .rank .cw,.rank .ar{display:none}
+}
+
+/* ---------- price chips ---------- */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{border:1px solid var(--rule);background:none;padding:9px 14px;font-size:12px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+.flip{transition:opacity .35s var(--ease),transform .5s var(--ease)}
+.flip.out{opacity:0;transform:translate3d(0,10px,0)}
+
+/* ---------- statement ---------- */
+.statement{text-align:center;padding-block:clamp(64px,8vw,120px) clamp(20px,3vw,36px)}
+.statement .big{margin:0;font:500 clamp(3rem,7vw,6.4rem)/.95 var(--serif);letter-spacing:-.02em}
+.statement .big b{font-weight:500;color:var(--red)}
+.statement blockquote{margin:16px auto 0;max-width:46ch;font-size:13px;font-weight:500}
+.statement cite{display:block;margin-top:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55)}
+.marquee{margin-top:clamp(28px,4vw,48px);border-block:1px solid var(--rule);overflow:hidden}
+.marquee .row{display:flex;width:max-content;animation:marq 38s linear infinite}
+.marquee:hover .row{animation-play-state:paused}
+.marquee span{font:400 clamp(1.4rem,2.4vw,2rem)/1 var(--serif);padding:18px clamp(18px,2.4vw,34px);white-space:nowrap}
+.marquee span.d{color:var(--ink-35);padding-inline:0}
+@keyframes marq{to{transform:translate3d(-50%,0,0)}}
+
+/* ---------- panel band (basketball / slides) ---------- */
+.band{background:var(--panel);padding:clamp(22px,3vw,40px)}
+.band .prod .sh{background:var(--paper)}
+
+/* ---------- journal ---------- */
+.journal{background:var(--panel);padding:clamp(20px,3vw,40px)}
+.jhead{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.jhead .m{font:900 clamp(1.4rem,2.2vw,1.9rem)/1 var(--logo);font-variation-settings:"wdth" 125;text-transform:uppercase}
+.jtabs{display:flex;gap:18px;font-size:11.5px;flex-wrap:wrap;align-items:center}
+.jtabs button{background:none;border:0;padding:0;cursor:pointer;color:var(--ink-55)}
+.jtabs button[aria-pressed="true"]{color:var(--ink)}
+.jbody{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(18px,3vw,40px);padding-top:18px}
+.feat{display:grid;grid-template-columns:.8fr 1fr;gap:clamp(14px,2vw,26px);align-items:start;border-right:1px solid var(--rule);padding-right:clamp(18px,3vw,40px)}
+.feat h3,.jitem h3{margin:2px 0 6px;font:500 15px/1.25 var(--sans);text-wrap:balance}
+.feat .sh{aspect-ratio:3/4.3;background:#bdb9b2}
+.feat .sh img,.jitem .sh img{width:100%;height:100%;object-fit:cover;filter:saturate(.88);transition:transform 1.2s var(--ease)}
+.feat:hover .sh img,.jitem:hover .sh img{transform:scale(1.05)}
+.jitem{display:grid;grid-template-columns:1fr 92px;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);align-items:center}
+.jitem:first-child{padding-top:0}
+.jitem .sh{aspect-ratio:1/1;background:var(--tile)}
+.jitem[hidden],.feat[hidden]{display:none}
+@media (max-width:900px){.jbody{grid-template-columns:1fr}.feat{border-right:0;padding-right:0;border-bottom:1px solid var(--rule);padding-bottom:18px}}
+@media (max-width:480px){.feat{grid-template-columns:1fr}.feat .sh{aspect-ratio:4/3}}
+
+/* ---------- stores ---------- */
+.stores{border-top:1px solid var(--ink)}
+.store{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:clamp(14px,2vw,24px) 0;border-bottom:1px solid var(--rule);position:relative;overflow:hidden}
+.store h3{margin:0;font:500 clamp(2rem,5.4vw,4.6rem)/1 var(--serif);letter-spacing:-.02em;transition:transform .6s var(--ease)}
+.store span{font-size:12px;color:var(--ink-55);transition:color .3s}
+.store::before{content:"";position:absolute;inset:0;background:var(--tile);transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease);z-index:-1}
+.store:hover::before{transform:scaleY(1)}
+.store:hover h3{transform:translate3d(14px,0,0)}
+.store:hover span{color:var(--ink)}
+
+/* ---------- footer ---------- */
+footer{margin-top:clamp(56px,7vw,100px);background:var(--panel);padding-block:clamp(36px,4vw,56px) 28px}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr .8fr 1.4fr;gap:28px}
+footer h4{margin:0 0 12px;font:600 11px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:12px;color:var(--ink-80)}
+footer ul a:hover{color:var(--ink)}
+footer p{margin:0;font-size:12px;color:var(--ink-80);max-width:40ch}
+.flogo{font:900 clamp(3rem,13vw,13rem)/.8 var(--logo);font-variation-settings:"wdth" 125;text-transform:uppercase;letter-spacing:-.01em;margin-top:clamp(36px,5vw,64px);white-space:nowrap;overflow:hidden;color:var(--ink)}
+.flogo .dot{color:var(--red)}
+.sub{display:flex;border-bottom:1px solid var(--ink-35);margin-top:14px}
+.sub input{flex:1;min-width:0;border:0;background:none;padding:10px 0;font-size:12px}
+.sub input:focus{outline:none}
+.sub button{background:none;border:0;cursor:pointer;font-size:14px;padding:0 2px}
+.sub-ok{font-size:12px;margin-top:8px;color:var(--ink);min-height:18px}
+.fbot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px;font-size:11.5px;color:var(--ink-55)}
+@media (max-width:860px){.fgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.fgrid{grid-template-columns:1fr}}
+
+/* ---------- bag drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(20,20,19,.28);opacity:0;pointer-events:none;transition:opacity .4s;z-index:60}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);background:var(--paper);z-index:61;transform:translate3d(100%,0,0);transition:transform .6s var(--ease);display:flex;flex-direction:column;padding:calc(18px + env(safe-area-inset-top,0px)) 22px calc(18px + env(safe-area-inset-bottom,0px))}
+.open .scrim{opacity:1;pointer-events:auto}
+.open .drawer{transform:none}
+.drawer .top{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+.drawer .x{background:none;border:0;cursor:pointer;font-size:12px}
+.lines{flex:1;overflow:auto;padding-block:8px;overscroll-behavior:contain}
+.line{display:grid;grid-template-columns:70px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule);font-size:12px}
+.line .t{background:var(--tile);aspect-ratio:1}
+.line .t img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;padding:6px}
+.line button{background:none;border:0;cursor:pointer;color:var(--ink-55);font-size:11px}
+.empty{color:var(--ink-55);font-size:13px;padding-top:18px}
+.tot{border-top:1px solid var(--rule);padding-top:14px;display:grid;gap:12px;font-size:12px}
+.tot .r{display:flex;justify-content:space-between}
+.ship{height:2px;background:var(--rule);position:relative;overflow:hidden}
+.ship i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0);transition:transform .6s var(--ease)}
+.checkout{background:var(--ink);color:var(--snow);border:0;padding:15px;cursor:pointer;font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+
+.mnav{position:fixed;inset:0;z-index:55;background:var(--paper);padding:calc(150px + env(safe-area-inset-top,0px)) var(--gut) 30px;display:grid;align-content:start;gap:4px;transform:translate3d(0,-100%,0);transition:transform .6s var(--ease)}
+.mnav a{font:400 2.2rem/1.2 var(--serif)}
+.menu-open .mnav{transform:none}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate3d(-50%,160%,0);background:var(--ink);color:var(--snow);padding:12px 16px;font-size:12px;z-index:70;transition:transform .5s var(--ease),visibility .5s;max-width:calc(100% - 32px);visibility:hidden}
+.toast.show{transform:translate3d(-50%,0,0);visibility:visible}
+
+section.cv{content-visibility:auto;contain-intrinsic-size:auto 900px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .js .sh>img,.js .sh>.imgs{opacity:1}
+  .js .up{opacity:1;transform:none}
+  .hero img{scale:1}.wordmark span b{transform:none}
+  .hero .tag{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div class="ann" aria-label="Announcements"><div class="track" id="ann"></div></div>
+<header class="hdr" id="hdr">
+  <div class="row1">
+    <label class="search" for="q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search Jordan 4, Samba, 9060…" autocomplete="off"></label>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false">Menu</button>
+    <a class="logo" href="#top" aria-label="Superkicks home">Superkicks<span class="dot">.</span></a>
+    <div class="icons">
+      <a href="#footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="lbl">Account</span></a>
+      <button type="button" id="wishBtn" aria-label="Wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span class="count num" id="wishN">0</span></button>
+      <button type="button" id="bagBtn" aria-label="Open bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="lbl">Bag</span><span class="count num" id="bagN">0</span></button>
+    </div>
+  </div>
+  <nav class="row2" aria-label="Categories" id="row2">
+    <a href="#dropped">New arrivals</a><a href="#trending">Trending</a><a href="#jordan">Jordan</a><a href="#adidas">adidas</a><a href="#nb">New Balance</a><a href="#asics">ASICS</a><a href="#puma">Puma</a><a href="#women">Women</a><a href="#running">Running</a><a href="#fit">Apparel</a><a href="#stores">Stores</a><a href="#under" class="sale">Under ₹10k</a>
+  </nav>
+</header>
+<nav class="mnav" aria-label="Mobile"><a href="#dropped">New arrivals</a><a href="#trending">Trending</a><a href="#jordan">Jordan</a><a href="#nb">New Balance</a><a href="#women">Women</a><a href="#running">Running</a><a href="#fit">Apparel</a><a href="#stores">Stores</a></nav>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero" style="padding:0" aria-label="Superkicks">
+  <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=2200&q=80" alt="A pair of black and red Nike high-tops resting on a running track" fetchpriority="high">
+  <h1 class="wordmark" aria-label="Superkicks"></h1>
+  <p class="tag">India's home for limited sneakers. Nike, Jordan, adidas, New Balance and the labels you'll be hearing about next.<br><a href="#dropped">Shop new arrivals</a></p>
+</section>
+
+<!-- 01 JUST DROPPED (rail) -->
+<section id="dropped">
+  <div class="shell">
+    <div class="head up"><h2><small>01 · New arrivals</small>Just dropped</h2><a class="arrow" href="https://www.superkicks.in/collections/new-arrivals" target="_blank" rel="noopener">View all new arrivals <span>→</span></a></div>
+    <div class="rail" data-rail="newest"></div>
+    <div class="railbar"><div class="prog"><i></i></div><button class="navbtn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button class="navbtn" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+</section>
+
+<!-- EDITOR'S PICKS (original row) -->
+<section id="new">
+  <div class="shell">
+    <div class="title up"><h2>Superkicks is India's home for premium sneakers</h2></div>
+    <div class="grid4" data-grid="picks"></div>
+    <div class="center up"><a class="arrow" href="https://www.superkicks.in/collections/sneakers" target="_blank" rel="noopener">Shop all <span>→</span></a></div>
+  </div>
+</section>
+
+<!-- 02 SHOP BY CATEGORY -->
+<section id="cats" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>02 · Categories</small>Find your pair</h2></div>
+    <div class="cats" id="cats-grid"></div>
+  </div>
+</section>
+
+<!-- JORDAN COLLECTION -->
+<section id="jordan" class="cv">
+  <div class="shell split">
+    <div class="panel">
+      <h3 class="up">Jordan collection</h3>
+      <div class="obj sh"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/0659/0722/8923/files/4_94777ad7-de30-4f47-85d3-54986b8c53d0.jpg?width=900" alt="Air Jordan 12 Retro Idols Become Rivals"></div>
+      <div class="up">
+        <p>Air Jordan 12 Retro "Idols Become Rivals". Summit White with stitched leather mudguards and a full-length Zoom ride. ₹18,395.</p>
+        <a class="arrow" href="#" data-add="aj12">Add to bag <span>→</span></a>
+        <div class="minis" id="jminis"></div>
+      </div>
+    </div>
+    <div class="photo sh"><img loading="lazy" src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1400&q=80" alt="Legs dangling over a ledge in Air Jordan 1s"><span class="cap">Worn in the city, not kept in a box</span></div>
+  </div>
+</section>
+
+<!-- 03 TRENDING (ranked list) -->
+<section id="trending" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>03 · This week</small>Trending now</h2><span class="muted" style="font-size:12px">Most viewed pairs on Superkicks</span></div>
+    <div class="rank" id="rank"></div>
+  </div>
+</section>
+<div class="float" id="float" aria-hidden="true"><img alt="" id="floatImg"></div>
+
+<!-- ADIDAS ORIGINALS (original row) -->
+<section id="adidas" class="cv">
+  <div class="shell">
+    <div class="title up"><h2>adidas Originals collection</h2><p>Terrace classics, Bad Bunny's Gazelle Indoor and the Samba in every shape.</p></div>
+    <div class="grid4" data-grid="adidas"></div>
+  </div>
+</section>
+
+<!-- 04 NEW BALANCE spotlight -->
+<section id="nb" class="cv">
+  <div class="shell split rev">
+    <div class="panel">
+      <h3 class="up">New Balance · 9060</h3>
+      <div class="obj sh"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/0659/0722/8923/files/3_652f4b27-ecd9-4300-8f9e-86f1c9d0b21c.jpg?width=900" alt="New Balance 9060 Driftwood"></div>
+      <div class="up">
+        <p>Driftwood and Brighten Grey on the 9060's stacked ABZORB sole. Pair it with the 2010, 1906E and 530 below. ₹18,999.</p>
+        <a class="arrow" href="#" data-add="nb9060">Add to bag <span>→</span></a>
+        <div class="minis" id="nbminis"></div>
+      </div>
+    </div>
+    <div class="photo sh" style="background:var(--tile)"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/0659/0722/8923/files/4_f75c4d14-90e2-4719-8419-6602072761d7.jpg?width=1400" alt="New Balance 9060 detail" style="object-fit:contain;padding:8%;mix-blend-mode:multiply;filter:none"><span class="cap" style="color:var(--ink-55)">9060 · Driftwood / Brighten Grey</span></div>
+  </div>
+</section>
+
+<!-- 05 WOMEN'S EDIT -->
+<section id="women" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>05 · Women</small>The women's edit</h2><a class="arrow" href="https://www.superkicks.in/collections/women" target="_blank" rel="noopener">Shop women <span>→</span></a></div>
+    <div class="grid4" data-grid="women"></div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement" aria-label="About Superkicks">
+  <div class="shell">
+    <p class="big up">Community <b>first.</b></p>
+    <blockquote class="up">“Curating events and drops that promote the culture, and bringing the best of the world to you.”<cite>Superkicks</cite></blockquote>
+  </div>
+  <div class="marquee" aria-label="Brands at Superkicks"><div class="row" id="marq"></div></div>
+</section>
+
+<!-- 06 RUNNING (big rail) -->
+<section id="running" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>06 · Performance</small>Built to run</h2><span class="muted" style="font-size:12px">adizero, Hyperboost, ACG and AC Runner</span></div>
+    <div class="rail big" data-rail="run"></div>
+    <div class="railbar"><div class="prog"><i></i></div><button class="navbtn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button class="navbtn" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 07 UNDER 10K -->
+<section id="under" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>07 · Price</small>Great pairs under ₹10,000</h2>
+      <div class="chips" role="group" aria-label="Maximum price"><button type="button" data-max="7000" aria-pressed="false">Under ₹7,000</button><button type="button" data-max="9000" aria-pressed="false">Under ₹9,000</button><button type="button" data-max="10000" aria-pressed="true">Under ₹10,000</button></div></div>
+    <div class="grid4 flip" id="underGrid"></div>
+  </div>
+</section>
+
+<!-- 08 ASICS -->
+<section id="asics" class="cv">
+  <div class="shell">
+    <div class="title up"><h2>ASICS · The GEL archive</h2><p>GEL-Kayano 14, GEL-NYC 2.0 and the collabs that sold out the first time round.</p></div>
+    <div class="grid4" data-grid="asics"></div>
+  </div>
+</section>
+
+<!-- 09 PUMA -->
+<section id="puma" class="cv">
+  <div class="shell split">
+    <div class="photo sh" style="background:var(--tile)"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/0659/0722/8923/files/1_8160e7b5-0fc6-44bf-a602-e263d955e3d8.jpg?width=1400" alt="Puma Speedcat Printed" style="object-fit:contain;padding:10%;mix-blend-mode:multiply;filter:none"><span class="cap" style="color:var(--ink-55)">Speedcat Printed · Putty / Puma Black</span></div>
+    <div class="panel" style="justify-content:center;gap:22px">
+      <h3 class="up">Puma · Speedcat &amp; co.</h3>
+      <p class="up" style="font:500 clamp(1.6rem,3vw,2.6rem)/1.05 var(--serif);max-width:16ch;color:var(--ink)">Low, slim and built for the paddock.</p>
+      <div class="grid4" data-grid="puma" style="width:100%;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 BASKETBALL -->
+<section id="hoops" class="cv">
+  <div class="shell">
+    <div class="band">
+      <div class="head up"><h2><small>10 · Court</small>Basketball</h2><span class="muted" style="font-size:12px">Air Force 1, Sabrina 4, Anthony Edwards 2, Crazy Energy</span></div>
+      <div class="grid4" data-grid="bball"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 SLIDES & CLOGS -->
+<section id="slides" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>11 · Off duty</small>Slides &amp; clogs</h2><a class="arrow" href="https://www.superkicks.in/collections/slides-mules" target="_blank" rel="noopener">Shop slides <span>→</span></a></div>
+    <div class="grid6" data-grid="slides"></div>
+  </div>
+</section>
+
+<!-- 12 COMPLETE THE FIT -->
+<section id="fit" class="cv">
+  <div class="shell">
+    <div class="title up"><h2>Complete the fit</h2><p>Jordan and Nike basics with home-grown Almost Gods and London's Aries.</p></div>
+    <div class="grid4" data-grid="fit"></div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal" class="cv">
+  <div class="shell">
+    <div class="journal">
+      <div class="jhead up">
+        <span class="m">Superkicks journal</span>
+        <div class="jtabs" role="group" aria-label="Filter stories">
+          <button type="button" aria-pressed="true" data-f="all">All</button>
+          <button type="button" aria-pressed="false" data-f="Culture">Culture</button>
+          <button type="button" aria-pressed="false" data-f="History">History</button>
+          <a class="arrow" href="https://www.superkicks.in/blogs/news" target="_blank" rel="noopener">Read all <span>→</span></a>
+        </div>
+      </div>
+      <div class="jbody">
+        <a class="feat" href="https://www.superkicks.in/blogs/news/air-wav-a-celebration-of-music-culture-and-legacy" target="_blank" rel="noopener">
+          <div class="up"><span class="label muted">Culture</span><h3>Air.WAV: a celebration of music, culture and legacy</h3><span class="arrow">Read more <span>→</span></span></div>
+          <div class="sh"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/0659/0722/8923/files/2_4cdb017a-0878-4d72-b417-1a9415b02429.png?width=900" alt="Air.WAV collage"></div>
+        </a>
+        <div id="jlist"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 STORES -->
+<section id="stores" class="cv">
+  <div class="shell">
+    <div class="head up"><h2><small>13 · Visit us</small>Five stores, one culture</h2><a class="arrow" href="https://www.superkicks.in/pages/store-locator" target="_blank" rel="noopener">Store locator <span>→</span></a></div>
+    <div class="stores" id="storeList"></div>
+  </div>
+</section>
+
+<!-- CLOSING PAIR -->
+<section class="cv">
+  <div class="shell split">
+    <div class="panel">
+      <h3 class="up">Nike · Air Max Ecstasy Plus</h3>
+      <div class="obj sh"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/0659/0722/8923/files/4_9410bf96-98ec-4b0a-9730-babb5169b000.jpg?width=900" alt="Nike Air Max Ecstasy Plus in metallic silver"></div>
+      <div class="up">
+        <p>Metallic Silver, Black and White. A full-length Air unit under a chrome upper that catches every streetlight. ₹15,995.</p>
+        <a class="arrow" href="#" data-add="ecstasy">Add to bag <span>→</span></a>
+      </div>
+    </div>
+    <div class="photo sh"><img loading="lazy" src="https://www.superkicks.in/cdn/shop/files/DESKTOP_1_36d0062d-6d9a-4e42-8275-91cd387eef22.png?width=1600" alt="Air Max Ecstasy Plus hanging by its laces" style="object-position:60% 50%"></div>
+  </div>
+</section>
+</main>
+
+<footer id="footer">
+  <div class="shell">
+    <div class="fgrid">
+      <div><h4>About Superkicks</h4><p>A community-first sneaker store with partners like Nike, adidas, New Balance, ASICS and Puma, and the home-grown labels worth knowing. Stores in Mumbai, Bangalore, Delhi, Jaipur and Hyderabad.</p></div>
+      <div><h4>Need help?</h4><ul><li><a href="https://www.superkicks.in/pages/contact" target="_blank" rel="noopener">Contact us</a></li><li><a href="https://www.superkicks.in/pages/store-locator" target="_blank" rel="noopener">Store locator</a></li><li><a href="#">FAQ</a></li><li><a href="#">Order &amp; shipping</a></li><li><a href="#">Return &amp; exchange</a></li><li><a href="#">Gift card</a></li><li><a href="#">Bulk / corporate buying</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms &amp; conditions</a></li></ul></div>
+      <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/superkicksindia/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/SuperkicksIndia" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.youtube.com/@thesuperkicksindia" target="_blank" rel="noopener">YouTube</a></li></ul></div>
+      <div><h4>Join the community</h4><p>Drop alerts in your size, before anyone else.</p>
+        <form class="sub" id="subForm" novalidate><input id="subIn" type="text" inputmode="email" placeholder="Email or WhatsApp number" aria-label="Email or WhatsApp number"><button type="submit" aria-label="Subscribe">→</button></form>
+        <div class="sub-ok" id="subOk" role="status"></div>
+        <p class="muted" style="margin-top:6px">WhatsApp +91 86190 56043 · care@superkicks.in</p>
+      </div>
+    </div>
+    <div class="flogo" aria-hidden="true">Superkicks<span class="dot">.</span></div>
+    <div class="fbot"><span>© 2026 Superkicks. All rights reserved.</span><span id="clock">India (INR ₹)</span></div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Your bag" aria-hidden="true">
+  <div class="top"><span class="label">Your bag</span><button class="x" id="closeBag" type="button">Close</button></div>
+  <div class="lines" id="lines"></div>
+  <div class="tot">
+    <div class="r"><span id="shipMsg">Add ₹0 for free shipping</span></div>
+    <div class="ship"><i id="shipBar"></i></div>
+    <div class="r"><span>Subtotal</span><span class="num" id="sub">₹0</span></div>
+    <button class="checkout" type="button" id="checkout">Checkout</button>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(()=>{
+const root=document.documentElement; root.classList.add('js');
+const C='https://cdn.shopify.com/s/files/1/0659/0722/8923/files/';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const inr=n=>'₹ '+Math.round(n).toLocaleString('en-IN');
+
+/* ---- catalogue: live Superkicks products (titles, prices, sizes, photos from superkicks.in) ---- */
+const P={};
+function add(k,v,t,p,cp,sz,a,b,flag){ const [n,c]=t.split('{').map(s=>s.trim()); P[k]={k,v,n:tc(n),c:tc(c||''),p,cp,s:sz.split('/'),a:(a.startsWith('products/')?C.replace('files/',''):C)+a,b:(b.startsWith('products/')?C.replace('files/',''):C)+b,flag}; }
+function tc(s){ return s.toLowerCase().replace(/(^|[\s\-\/"(])([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bX\b/g,'x').replace(/\bOg\b/g,'OG').replace(/\bSe\b/g,'SE').replace(/\bAw\b/g,'AW').replace(/\bAcg\b/g,'ACG').replace(/\bSb\b/g,'SB').replace(/\bMb\b/g,'MB').replace(/\bAc\b/g,'AC').replace(/\bLs\b/g,'LS').replace(/\bSs\b/g,'SS').replace(/\bAmg\b/g,'AMG').replace(/\bF1\b/g,'F1').replace(/\bGel/g,'GEL').replace(/\bNyc\b/g,'NYC').replace(/\bMc\b/g,'MC').replace(/\bRcvry\b/g,'RCVRY').replace(/\bY2k\b/g,'Y2K').replace(/\bAdidas\b/g,'adidas'); }
+// new arrivals
+add('gelnyc','ASICS','GEL-NYC { CREAM/ANTIQUE RED',12999,0,'7/8/9/10/11','5_43387c28-ba92-4b3b-bc52-efa01bf40b07.jpg','1_4528ebd3-90b9-4f1a-844e-f3b52a96acec.jpg','New');
+add('braindead','adidas Originals','BRAIN DEAD X ADIDAS BARRICADE { MYSTERY INK/SILVER METALLIC',19999,0,'7/8/9/10/11','1_ebd109d5-6109-4a76-b44d-4af64d427ca5.jpg','8_5f0aaec5-db75-4556-a28a-b962880df5fa.jpg','Collab');
+add('sambaf1','adidas Originals','SAMBA OG MERCEDES AMG PETRONAS F1 TEAM { CORE BLACK/SILVER METALLIC',12999,0,'7/8/9/10/11','1_f4453d9b-ff0d-4d70-a231-96608c934e87.jpg','5_a3502688-a91e-4ef8-8481-ee420ad5fc04.jpg','New');
+add('crazy','adidas','CRAZY ENERGY { CORE BLACK/IMPACT ORANGE',10999,0,'7/8/9/10/11/12','5_f39c3c7a-28e7-4b48-b225-709206f05413.jpg','1_4604824a-513c-407f-8737-a58f27a09ddf.jpg','New');
+add('evolaceless','adidas','ADIZERO EVO SL LACELESS { CLOUD WHITE/GREY TWO/CORE BLACK',16999,0,'7/8/9/10/11','1_c487f6b1-4c68-4dca-aad9-65a94e12e3c5.jpg','3_53c0cadc-3591-4944-8287-7a8e755c8227.jpg','New');
+add('gazelle','adidas Originals','BAD BUNNY X ADIDAS GAZELLE INDOOR { SOLAR GOLD/CORE BLACK',13999,0,'6/7/8/9/10/11/12','2_2fe3f17f-7468-47ee-8a9c-8461d49c184c.jpg','5_855a7136-3391-4a25-ba06-480ef269b078.jpg','Just dropped');
+add('adi2000','adidas Originals','ADI2000 { EARTH STRATA/CLOUD WHITE',10999,0,'7/8/9/10/11','1_49ba8474-1fc0-4253-b340-d3c3163009ca.jpg','2_6c3c71fe-f394-454f-bd51-82e88d017e28.jpg','New');
+add('purechill','adidas','PURECHILL { SOLAR TURBO/CORE BLACK',6599,0,'6/7/8/9/10/11','1_639a04d2-182f-4554-a541-3d0509fb03de.jpg','2_47321dc2-dc0a-4fdf-86a0-45d8a3f188d3.jpg','New');
+// picks
+add('aj3','Jordan','AIR JORDAN 3 RETRO "FIRESIDE" { VELVET BROWN/PEARL WHITE',16595,0,'4/5/6/7','4_16eca50e-5668-4cd9-a557-99b9beb8cbb0.jpg','3_ecd46275-76ad-4443-a477-0f86e1d57c82.jpg');
+add('dolce','Nike','AIR MAX DOLCE { BLACK/SPORT RED',14995,0,'4/5/6','1_4650b3b3-6647-4a1f-9323-cd817ff4c6fc.jpg','2_c356dd61-d8d3-4310-b22f-62cb93ca886d.jpg');
+add('moon','Nike','MOON SHOE { MYSTIC DATES/SAIL/TOUGH RED',8995,0,'6/7/8/9','4_acf4194c-177f-47fd-b0e3-efb3c9439da3.jpg','3_4f84a58e-a293-4727-9b92-715c72b0600d.jpg');
+add('ecstasy','Nike','AIR MAX ECSTASY PLUS { METALLIC SILVER/BLACK',15995,0,'9/10/11','4_9410bf96-98ec-4b0a-9730-babb5169b000.jpg','3_65d02f94-4b65-4ed4-ba16-3f7cbc0aba5f.jpg');
+// jordan
+add('aj12','Jordan','AIR JORDAN 12 RETRO "IDOLS BECOME RIVALS" { SUMMIT WHITE',18395,0,'6/7/8/9/10/11','4_94777ad7-de30-4f47-85d3-54986b8c53d0.jpg','3_381c2a0a-9ee0-4773-b138-d8b8e1d71282.jpg');
+add('aj1low','Jordan','AIR JORDAN 1 LOW SE { CACAO WOW/PEARL WHITE/RUST PINK',11495,0,'3/4/6/7/8/9','2_94f77260-358a-4a0d-a71a-a7d742c72cec.jpg','3_bc5a20d1-bdfa-409e-a696-535a1d82d195.jpg');
+add('aj1mid','Jordan','AIR JORDAN 1 MID SE { BLACK/SEQUOIA/SCREAM GREEN',12495,0,'6/7','4_077e489a-3443-4e76-8b14-913eec752e83.jpg','3_a1e8aa50-8333-4dcd-b054-cef48a1e5ac5.jpg');
+add('pointe','Jordan','JORDAN POINTE { PISTACHIO FROST/HEALING JADE',10795,0,'4/5/6','3_ad330947-ed0f-49d3-acf7-ea451e0ec4a1.jpg','2_7a6963b8-1ea9-4817-b29f-8d5e1dc97277.jpg');
+add('triple','Jordan','AIR JORDAN 1 TRIPLE STACK { RUST PINK/PEARL WHITE',12795,0,'4/5/6/7','2_91ea5719-da3a-4972-a012-ca74d309698a.jpg','3_6dc04d9e-c4b6-4f09-af9b-571378385f13.jpg');
+// adidas row
+add('sambamule','adidas Originals','SAMBA OG MULE { CORE BLACK/CLOUD WHITE/GUM',9999,0,'4/5/7','1_c3cd9aaf-0fa8-4eed-9226-9e0626eec6f6.jpg','2_a2af1ffe-adf8-4f6d-b221-1958c4ada306.jpg');
+add('ballet','adidas Originals','SAMBA BALLET { CORE BLACK/OFF WHITE/GUM',9999,0,'4/5/6/7','1_e1ea01c6-bf29-4006-8db2-c80acf1106f2.jpg','2_5b532f4d-2665-48ac-ba67-c311715ebcef.jpg');
+add('jane','adidas Originals','SAMBA JANE { CORE BLACK/CLOUD WHITE/GUM',9999,0,'4/5/6','1_84e668f6-4da4-4eb9-b386-1090606f2813.jpg','5_31fc6995-d702-4a60-87ec-fa6958d248ac.jpg');
+// new balance
+add('nb9060','New Balance','9060 { DRIFTWOOD/BRIGHTEN GREY',18999,0,'7/8/9/10/11','3_652f4b27-ecd9-4300-8f9e-86f1c9d0b21c.jpg','4_f75c4d14-90e2-4719-8419-6602072761d7.jpg');
+add('nb2010','New Balance','2010 { MUSHROOM WITH HARBOR GREY',16999,0,'7/8/9/10/11','1_c045cf8d-6b33-409f-82f1-59708d71392c.jpg','3_2fcc8fc2-17d9-463f-bf51-c592101155c9.jpg');
+add('nb1906','New Balance','1906E { ALTITUDE',16999,0,'7/8/10/11','1_44e39d42-6c95-4ef8-84cd-cbd36f5c9d83.jpg','3_5eeb8ad2-c3de-49b1-9964-f8a6eba272dc.jpg');
+add('nb530','New Balance','530 { PUMPERNICKEL WITH SEA SALT',11999,0,'7/8/9/11','1_a16a0d77-278a-476e-9bfd-f7a11e0d18d2.jpg','3_0c58271e-42e3-4426-9a37-76947caf2199.jpg');
+// women
+add('af1w','Nike','AIR FORCE 1 \'07 SE { BLACK/METALLIC SUMMIT WHITE',10995,0,'4/5/6','4_3a04fe61-a11f-46dd-81ff-89fa09c74437.jpg','24_ecfcf682-7480-4a7a-b889-6b168bc9ddb9.jpg');
+add('pegprem','Nike','PEGASUS PREMIUM { PARTICLE ROSE/SAIL/SILVER LILAC',19295,0,'4/5/6/7','4_fa313134-9299-4cb6-a004-0bd7c8c2ea90.jpg','3_6467e068-8cf8-4ef6-95db-54a3a2364468.jpg');
+add('dunk','Nike','DUNK LOW SUEDE { PEARL WHITE/PALE IVORY',9695,0,'3/4/5/6/7','4_2b8b257d-13ac-4629-ae9c-49cef0980a5f.jpg','3_559505ca-122e-4b74-8a5b-0394e85783e7.jpg');
+add('wedge','Puma','SPEEDCAT WEDGE { PUMA SILVER/VAPOR GREY',10999,0,'4/5','7_99ba31d1-b338-469f-b681-5dc423c14b22.jpg','2_9be620b6-2dad-4af3-927a-ee00f651c94b.jpg');
+// running
+add('naked','adidas','NAKED X ADIZERO EVO SL ZIP { BLUSH PINK',15999,0,'4/5/6/7/8/10','2_6_7b8d9aa8-e793-40ed-9169-7bbcdd877942.jpg','7_1_e188d512-3b3e-4422-a0c6-df8f298dcb4e.jpg');
+add('hyper','adidas','HYPERBOOST RUN { GREY TWO/CARBON/BLUE DAWN',17999,0,'7/8/9/10/11','1_e357571b-8eff-4f99-975b-6c612eb8c6ac.jpg','2_550dad5e-c137-4695-b34f-4f2c77ab8a60.jpg');
+add('zegama','Nike','ACG ZEGAMA { SPRUCE FOG/SEA GLASS/BLACK',15995,0,'7','4_5b2a3cef-e6ed-47b8-a1a1-a7b3e81b3dab.jpg','3_35088f4a-7c39-450c-912a-63c685f07910.jpg');
+add('acrunner','New Balance','AC RUNNER { BLACK WITH GREY',18999,0,'7/8/9/10/11','1_2d661453-9a7c-4068-b0ca-f67472864759.jpg','4_07934436-ea14-4cf3-b6e7-a627264a14da.jpg');
+add('evosl','adidas','ADIZERO EVO SL { SOLAR TURBO/CORE BLACK/CARBON',15999,0,'7/8/9/10/11','1_670eaecf-55ce-49b8-9130-0bd65922421e.jpg','2_8083d240-658c-4236-8e9e-27008489fb1e.jpg');
+add('hyperedge','adidas','HYPERBOOST EDGE { HYPER WHITE/SOLAR TURBO',19999,0,'4/5/6','1_5ed90ce2-e43a-4bd7-9b66-5cb3c4506cb4.jpg','3_3fdbd3ce-2324-463d-9063-92dfc57ae501.jpg');
+add('kayano12','ASICS','INVINCIBLE X MADNESS X GEL-KAYANO 12.1 { VANILLA',19999,0,'7/9/10/11','25_04a56434-70dd-47fa-99d8-406be4b06015.jpg','3_41409142-a27b-4f47-8ee1-3b729cdcc01e.jpg','Collab');
+// under 10k
+add('p6000','Nike','P-6000 { BLACK/WHITE/METALLIC SILVER',7995,0,'8/10','4_a58aa10a-286b-4fff-83a5-30567bec83b8.jpg','3_cac0ddb2-2fd9-4c52-84fd-39e8a4f2c69e.jpg');
+add('force58','Nike','SB FORCE 58 { MEDIUM OLIVE/BLACK',6495,0,'10/11','4_31f6fb71-150d-4311-9f08-46a412d5fee6.jpg','3_433663c6-7a1c-4601-a0a4-af74ca4db31c.jpg');
+add('tennis','Nike','TENNIS CLASSIC { NEUTRAL OLIVE/SAIL',8695,0,'7/8/9/10/11','4_60656783-4da5-481b-8eab-dbd31b9532de.jpg','3_60060a4f-c0d3-4306-8d74-bb38e33468ae.jpg');
+add('moonog','Nike','MOON SHOE OG { MIDNIGHT NAVY/SAIL/BLACK',8995,0,'7/8/10/11','4_5214cbbb-1f55-40b4-bb69-69073bc82c6e.jpg','3_5d299dcf-bcdc-4331-8dc9-932e2945e703.jpg');
+add('glenburn','adidas Originals','X DAEWON SONG GLENBURN { BROWN',7999,0,'7/11','1_27fe230d-885f-4aa4-8bd8-b8dbc2010c27.jpg','3_af9f544c-c9de-41e8-a73c-01c573b363ac.jpg');
+add('louie','Converse','LOUIE LOPEZ PRO 2 { YELLOW/BLACK/VINTAGE WHITE',6999,0,'7/8/10/11','3_0e53a890-f114-4a4c-9edd-67ff94608df9.jpg','2_3dbed189-64ca-44d2-8cc8-ec545f656730.jpg');
+add('japans','ASICS','JAPAN S { WHITE/WHITE',6299,6999,'7/8/9/10/11','1_520515f6-40c4-4838-837e-dd6a84801d5b.jpg','2_d0fa98f0-e7b5-4028-91bf-31aa7e588333.jpg','10% off');
+add('nitrocat','Puma','NITROCAT { MOODY GRAY/LIGHT LAVENDER/ULTRA RED',6999,0,'7/8/9/10/11','4_a81d0184-1f0d-4ccc-82f7-c93f25ffac06.jpg','1_5c928b6c-50c5-40a1-b6ee-2b1df4a4a5b8.jpg');
+// asics
+add('kayano14','ASICS','GEL-KAYANO 14 { CREAM/COCOA POWDER',13999,0,'7/8/10/11','1_970498f3-cf10-4701-8edf-60ddde7a62fe.jpg','2_f165da39-bbb9-4e5c-b532-01e8f8dfc69d.jpg');
+add('nyc2','ASICS','GEL-NYC 2.0 { CREAM/DUSTY FERN',13999,0,'7/8/9/10','1_62ccb314-04c7-4d59-bd3d-cd224ad08229.jpg','4_8f0cd4aa-b4f6-417a-b650-802f76b5bc64.jpg');
+add('skyhand','ASICS','SKYHAND OG { LIGHT SAGE/ASH GREEN',9999,0,'7/8/9/10/11','1_e9695763-fd2e-4743-99b2-08431c82346f.jpg','5_ff86d112-f0a3-420c-9dfe-a35d859197e3.jpg');
+add('cumulus','ASICS','EARLS X GEL-CUMULUS 16 { COCONUT MILK/BLACK',17099,18999,'7/8/9/10','5_2c9e5cde-5569-49c1-a0f3-65284bc187e4.jpg','3_9047b5f1-f55b-46fd-8533-ae93ade9a614.jpg','10% off');
+// puma
+add('mb06','Puma','MB.06 SHOOTING STAR { DARK AMETHYST/LAVENDER ALERT',13999,0,'7/8/9/10/11','1_b01351c0-517b-4176-886b-6304dc28778f.jpg','5_32f58f32-d30e-46a6-a4ac-c07422987380.jpg');
+add('velum','Puma','PUMA X SALEHE BEMBURY VELUM 2 NITRO { RED CLAY/NASTURTIUM',16999,0,'7/10/11','2_bf7f284a-d571-4156-ae1f-47bbfe7357b3.jpg','6_f9ed344d-8547-4bc0-94a1-50048e4a5e4a.jpg','Collab');
+add('palermo','Puma','PALERMO LEATHER { WARM WHITE/CHOCOLATE FONDUE/GUM',6999,0,'5/6','8_191586ec-4ef2-4af0-a7d3-9e0cb2de1ccd.jpg','5_2173dc1c-1eec-4836-a1b4-7a4fcc205d7f.jpg');
+add('fade','Puma','FADE LS Y2K { PUMA BLACK/PUMA SILVER',9999,0,'7/8/9/10/11','1_ee530fd2-84a6-4090-8ebf-8075bbb18d20.jpg','4_60e49a09-9dfb-41c9-9d83-5183690011d5.jpg');
+// basketball
+add('af1mid','Nike','AIR FORCE 1 MID \'07 { FLAX/WHEAT/GUM LIGHT BROWN',11495,0,'7/8/9/10','4_e4257529-c95c-4813-a25e-7cc4c3f1001b.jpg','3_f4fd3aa5-9832-4e0e-b31f-99103f980b92.jpg');
+add('af1retro','Nike','AIR FORCE 1 LOW RETRO { BAROQUE BROWN/BLACK',12995,0,'6/7','4_11e3507b-52b3-4c6b-8b0f-0305a0ae0847.jpg','3_caaf9507-2669-47f7-9251-8e6ff1c2865c.jpg');
+add('sabrina','Nike','SABRINA 4 "THE SWITCH" { DESERT PINK/LEMON VENOM',11995,0,'4/5','4_977a1094-1526-4f36-a333-8af83d08d1bd.jpg','3_48287768-32ae-4563-a1f4-9e0daca0209e.jpg');
+add('ae2','adidas','ANTHONY EDWARDS 2 { HAZE CORAL/BLISS LILAC',12999,0,'7/8/9/10','1_618c55be-8c0a-4419-8c8c-2b0a4650c67d.jpg','2_07bf6085-80cb-4939-a000-63fab5b22387.jpg');
+// slides
+add('rejuven8','Nike','REACT X REJUVEN8 { NEW SLATE/OBSIDIAN',4695,0,'7/8/9/10','3_2c79750c-6eef-48af-983f-634e387679ee.jpg','1_55e99f98-7694-4d5a-bfcb-5361c603eea5.jpg');
+add('rcvry','New Balance','FRESH FOAM RCVRY { PHANTOM WITH PARCHMENT',5499,0,'6.5/7.5/8.5/9.5/10.5','1_13398360-d8e8-4a17-a5ef-d11fb5037ddc.jpg','3_d0c254b8-19e8-43ee-8801-e5a188ac6416.jpg');
+add('kobe','Nike','KOBE OFFCOURT { HYPER ROYAL/WHITE',3195,0,'7/8/9/10/11','3_44532388-95e0-4cad-807b-99a9dde97578.jpg','2_4ba18729-f8c5-4e3e-988d-97816c7db0ba.jpg');
+add('franchise','Jordan','FRANCHISE SLIDE { OFF WHITE/FIRE PINK',2195,0,'7/8/9/10','3_c20b1509-9dce-4ba8-9d68-b2af6657dacf.jpg','1_dc055b24-67bc-4653-b7a6-e8c4d31c3b2f.jpg');
+add('yoshi','Crocs','YOSHI CLASSIC CLOG { GREEN/WHITE',7995,0,'7/8/9/10/11','2_1f923602-98c8-47c3-8b73-38a96d1de12f.jpg','3_a1d1ba4d-14a1-40e0-b8d2-7e737a95b049.jpg');
+add('mario','Crocs','MARIO CLASSIC CLOG { BLUE/ORANGE',7995,0,'7/8/10/11','2_b9450add-5f95-47ba-90ff-145ead34fcfd.jpg','3_7bf467cb-d4c1-40a0-b99f-b153a2a795e5.jpg');
+// apparel
+add('mountain','Jordan','FLIGHT MOUNTAINSIDE TEE { WHITE',2495,0,'S/M/L/XL','2_4dae3f7d-4ad9-46a7-8a94-d70c86894a68.jpg','1_6474a10c-bf83-43e1-9f36-8ee6e3add3f7.jpg');
+add('pleated','Almost Gods','PLEATED SWEATPANTS { BROWN',7500,0,'30/32/34/36/38','3_0a9ec3a4-4c8a-4ee2-a89d-a18c19830e94.jpg','1_870b9a06-1e36-4f14-bc62-bf728a4fa474.jpg','Home-grown');
+add('lilies','Almost Gods','LILIES KNITTED RELAXED SWEATER { BROWN',12500,0,'S/M/L/XL','2_7f3a2b79-9857-40f8-805a-5b307182cbde.jpg','3_af3a980c-97f9-435d-b7cb-41413949f8ca.jpg','Home-grown');
+add('aries','Aries','FADED WORLD MUTATE LS TEE { BLACK',20999,0,'S/M/L/XL','1_e45b04d0-9c3a-49a9-ac94-3580373d2888.jpg','2_0f03c0a6-c619-4767-ba20-348479a70af3.jpg');
+
+const GRIDS={
+ picks:['aj3','dolce','moon','ecstasy'],
+ adidas:['gazelle','sambamule','ballet','adi2000'],
+ women:['af1w','pegprem','dunk','wedge'],
+ asics:['kayano14','nyc2','skyhand','cumulus'],
+ puma:['mb06','velum','palermo','fade'],
+ bball:['af1mid','af1retro','sabrina','ae2'],
+ slides:['rejuven8','rcvry','kobe','franchise','yoshi','mario'],
+ fit:['mountain','pleated','lilies','aries']
+};
+const RAILS={ newest:['gelnyc','braindead','sambaf1','gazelle','crazy','evolaceless','adi2000','purechill'], run:['naked','hyper','evosl','zegama','acrunner','hyperedge','kayano12'] };
+const UNDER=['p6000','force58','tennis','moonog','glenburn','louie','japans','nitrocat','palermo','purechill','kobe','franchise'];
+
+const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+function card(k,w=600){ const p=P[k]; if(!p) return '';
+  const off=p.cp>p.p? `<s>${inr(p.cp)}</s><b>${Math.round((1-p.p/p.cp)*100)}% off</b>`:'';
+  const sizes=p.s.map(n=>`<button type="button" data-k="${k}" data-s="${n}" aria-label="Add size ${n}">${n}</button>`).join('');
+  return `<article class="prod">
+    <div class="sh"><div class="imgs"><img class="a" loading="lazy" decoding="async" src="${p.a}?width=${w}" alt="${p.v} ${p.n}, ${p.c}"><img class="b" loading="lazy" decoding="async" src="${p.b}?width=${w}" alt="" aria-hidden="true"></div>
+      ${p.flag?`<span class="badge ${/off/.test(p.flag)?'red':''}">${p.flag}</span>`:''}
+      <button class="wish" type="button" data-wish="${k}" aria-pressed="false" aria-label="Save ${p.n}">${heart}</button>
+      <div class="quick"><div class="k"><span>Quick add · ${/[A-Z]/.test(p.s[0])||+p.s[0]>20?'Size':'UK'}</span><span class="muted">${p.s.length} in stock</span></div><div class="sizes">${sizes}</div></div>
+      <button class="plus" type="button" data-plus="${k}" aria-label="Add ${p.n} to bag">+</button>
+    </div>
+    <div class="meta"><span class="v">${p.v}</span><span class="n">${p.n}</span><span class="c">${p.c}</span><span class="p">${inr(p.p)}${off}</span></div></article>`; }
+Object.entries(GRIDS).forEach(([g,ks])=>{ const el=$(`[data-grid="${g}"]`); if(el) el.innerHTML=ks.map(k=>card(k)).join(''); });
+Object.entries(RAILS).forEach(([r,ks])=>{ $(`[data-rail="${r}"]`).innerHTML=ks.map(k=>card(k,700)).join(''); });
+
+/* minis under split panels */
+const mini=ks=>ks.map(k=>`<a href="#" data-add="${k}" aria-label="Add ${P[k].n}"><img loading="lazy" src="${P[k].a}?width=240" alt="${P[k].n}"></a>`).join('');
+$('#jminis').innerHTML=mini(['aj1low','pointe','triple']);
+$('#nbminis').innerHTML=mini(['nb2010','nb1906','nb530']);
+
+/* categories */
+const CATS=[['Lifestyle','sambaf1','https://www.superkicks.in/collections/lifestyle-sneakers'],['Running','hyper','https://www.superkicks.in/collections/running'],['Basketball','ae2','https://www.superkicks.in/collections/basketball-sneakers'],['Slides & clogs','rejuven8','https://www.superkicks.in/collections/slides-mules']];
+$('#cats-grid').innerHTML=CATS.map(([n,k,u],i)=>`<a class="cat up" href="${u}" target="_blank" rel="noopener"><span class="idx">0${i+1}</span><img loading="lazy" src="${P[k].a}?width=700" alt=""><div><h3>${n}</h3><div class="go"><span>Shop ${n.toLowerCase()}</span><span>→</span></div></div></a>`).join('');
+
+/* trending ranked list */
+const TR=['aj12','nb9060','aj1low','kayano14','nb2010','velum'];
+$('#rank').innerHTML=TR.map((k,i)=>{const p=P[k]; return `<a href="#" data-add="${k}" data-img="${p.a}"><span class="no">0${i+1}</span><span class="th"><img loading="lazy" src="${p.a}?width=200" alt=""></span><span class="nm">${p.n}</span><span class="cw">${p.v} · ${p.c}</span><span class="pr">${inr(p.p)}</span><span class="ar">→</span></a>`}).join('');
+// cursor-follow photo, lerped in rAF (transform only)
+const fl=$('#float'), fimg=$('#floatImg'); let tx=0,ty=0,cx=0,cy=0,live=false;
+if(!reduce && matchMedia('(hover:hover) and (min-width:861px)').matches){
+  $('#rank').addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY; if(!live){cx=tx;cy=ty;live=true;loop()} });
+  $$('#rank a').forEach(a=>{a.addEventListener('pointerenter',()=>{fimg.src=a.dataset.img+'?width=520';fl.classList.add('on')})});
+  $('#rank').addEventListener('pointerleave',()=>{fl.classList.remove('on');live=false});
+}
+function loop(){ if(!live) return; cx+=(tx-cx)*.16; cy+=(ty-cy)*.16; fl.style.transform=`translate3d(${cx+150}px,${cy-130}px,0) translate(-50%,-50%)`; requestAnimationFrame(loop) }
+
+/* under 10k with price chips */
+function renderUnder(max){ const g=$('#underGrid'); g.classList.add('out'); setTimeout(()=>{ g.innerHTML=UNDER.filter(k=>P[k].p<max).slice(0,8).map(k=>card(k)).join(''); g.classList.remove('out'); revealNow(g); },250) }
+$$('.chips button').forEach(b=>b.onclick=()=>{ $$('.chips button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderUnder(+b.dataset.max) });
+$('#underGrid').innerHTML=UNDER.filter(k=>P[k].p<10000).slice(0,8).map(k=>card(k)).join('');
+
+/* journal */
+const J=[
+ {c:'History',t:'Air Force 1: the untouchable classic that never fades',u:'air-force-1-the-untouchable-classic-that-never-fades',i:'From-Courtside-to-Curbside_1024x1024.jpg'},
+ {c:'History',t:"From 1973 to now: the evolution of Nike's iconic Blazers",u:'from-1973-to-now-the-evolution-of-nikes-iconic-blazers',i:'The-Birth-of-the-Blazer-_1973_1024x1024.jpg'},
+ {c:'Culture',t:"adidas Samba: the cool kid's shoe with a story",u:'adidas-samba-the-cool-kid-s-shoe-with-a-story',i:'Living-the-Legacy_1024x1024.jpg'},
+ {c:'History',t:'The New Balance legacy: comfort, performance and global style',u:'the-new-balance-legacy-where-comfort-meets-performance-global-style',i:'A-Brief-History-of-New-Balance_1024x1024.jpg'}
+];
+$('#jlist').innerHTML=J.map(j=>`<a class="jitem" data-c="${j.c}" href="https://www.superkicks.in/blogs/news/${j.u}" target="_blank" rel="noopener"><div><span class="label muted">${j.c}</span><h3>${j.t}</h3><span class="arrow">Read more <span>→</span></span></div><div class="sh"><img loading="lazy" src="${C+j.i}?width=300" alt=""></div></a>`).join('');
+$('.jtabs').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; $$('.jtabs button').forEach(x=>x.setAttribute('aria-pressed',x===b)); const f=b.dataset.f; $$('.jitem').forEach(it=>it.hidden=!(f==='all'||it.dataset.c===f)); $('.feat').hidden=!(f==='all'||f==='Culture')});
+
+/* stores */
+$('#storeList').innerHTML=['Mumbai','Bangalore','Delhi','Jaipur','Hyderabad'].map((c,i)=>`<a class="store up" href="https://www.superkicks.in/pages/store-locator" target="_blank" rel="noopener"><h3>${c}</h3><span>0${i+1} · Get directions →</span></a>`).join('');
+
+/* marquees */
+const B=['Nike','Jordan','adidas Originals','New Balance','ASICS','Puma','Converse','Crocs','Almost Gods','Aries','Carhartt WIP','Gully Labs'];
+const mh=B.map(b=>`<span>${b}</span><span class="d">/</span>`).join(''); $('#marq').innerHTML=mh+mh;
+const A=['Customer care on WhatsApp · +91 86190 56043','Stores in Mumbai · Bangalore · Delhi · Jaipur · Hyderabad','Pay in 3 with Simpl and Snapmint','Bad Bunny x adidas Gazelle Indoor · Solar Gold · out now','New arrivals every week'];
+const ah=A.map(a=>`<span>${a}</span><span class="d">●</span>`).join(''); $('#ann').innerHTML=ah+ah;
+
+/* wordmark letters */
+const wm=$('.wordmark'); 'SUPERKICKS'.split('').forEach((ch,i)=>{const s=document.createElement('span'); s.setAttribute('aria-hidden','true'); s.innerHTML='<b style="transition-delay:'+(0.15+i*0.06)+'s">'+ch+'</b>'; wm.appendChild(s)});
+
+/* ---- bag + wishlist ---- */
+const bag=[]; const wish=new Set(); const FREE=15000;
+let tt; const toast=m=>{const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),2400)};
+const bump=el=>{el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); setTimeout(()=>el.classList.remove('bump'),450)};
+function render(){ $('#bagN').textContent=bag.length;
+  $('#lines').innerHTML=bag.length? bag.map((l,i)=>`<div class="line"><div class="t"><img src="${P[l.k].a}?width=200" alt=""></div><div>${P[l.k].n}<br><span class="muted">${P[l.k].c}<br>Size ${l.s}</span></div><div style="text-align:right"><span class="num">${inr(P[l.k].p)}</span><br><button type="button" data-rm="${i}">Remove</button></div></div>`).join('') : '<p class="empty">Your bag is empty. Pick a size on any pair to add it.</p>';
+  const sub=bag.reduce((a,l)=>a+P[l.k].p,0); $('#sub').textContent=inr(sub);
+  const left=Math.max(0,FREE-sub); $('#shipMsg').textContent= left? 'Add '+inr(left)+' for free shipping':'Free shipping unlocked'; $('#shipBar').style.transform=`scaleX(${Math.min(1,sub/FREE)})`; }
+function addBag(k,s){ bag.push({k,s}); render(); bump($('#bagN')); toast(P[k].n+' · size '+s+' added to bag'); }
+const openBag=v=>{document.body.classList.toggle('open',v); $('#drawer').setAttribute('aria-hidden',!v); if(lenis) v?lenis.stop():lenis.start()};
+document.addEventListener('click',e=>{
+  const s=e.target.closest('.sizes button'); if(s){ addBag(s.dataset.k,s.dataset.s); return }
+  const w=e.target.closest('[data-wish]'); if(w){ const k=w.dataset.wish; const on=!wish.has(k); on?wish.add(k):wish.delete(k); $$(`[data-wish="${k}"]`).forEach(x=>x.setAttribute('aria-pressed',on)); $('#wishN').textContent=wish.size; bump($('#wishN')); toast(on?'Saved to wishlist':'Removed from wishlist'); return }
+  const pl=e.target.closest('[data-plus]'); if(pl){ const p=P[pl.dataset.plus]; addBag(pl.dataset.plus,p.s[Math.floor(p.s.length/2)]); return }
+  const ad=e.target.closest('[data-add]'); if(ad){ e.preventDefault(); const p=P[ad.dataset.add]; addBag(ad.dataset.add,p.s[Math.floor(p.s.length/2)]); openBag(true); return }
+  const rm=e.target.closest('[data-rm]'); if(rm){ bag.splice(+rm.dataset.rm,1); render(); return }
+  const a=e.target.closest('a[href^="#"]'); if(a && a.getAttribute('href').length>1){ const t=document.querySelector(a.getAttribute('href')); if(t){ e.preventDefault(); document.body.classList.remove('menu-open'); $('#menuBtn').textContent='Menu'; lenis? lenis.scrollTo(t,{offset:-hdrH()+1,duration:1.4}) : t.scrollIntoView({behavior:reduce?'auto':'smooth'}); } }
+});
+$('#bagBtn').onclick=()=>openBag(true); $('#closeBag').onclick=()=>openBag(false); $('#scrim').onclick=()=>openBag(false);
+$('#wishBtn').onclick=()=>toast(wish.size? wish.size+' pair'+(wish.size>1?'s':'')+' saved':'Tap the heart on any pair to save it');
+addEventListener('keydown',e=>{ if(e.key==='Escape'){openBag(false);document.body.classList.remove('menu-open')} });
+$('#checkout').onclick=()=>toast(bag.length?'Checkout continues on superkicks.in':'Add a pair first');
+render();
+
+/* search: filters to matching pair and scrolls to it */
+$('#q').addEventListener('keydown',e=>{ if(e.key!=='Enter') return; const q=e.target.value.trim().toLowerCase(); if(!q) return;
+  const hit=$$('.prod').find(c=>c.textContent.toLowerCase().includes(q)); if(hit){ lenis?lenis.scrollTo(hit,{offset:-hdrH()-20}):hit.scrollIntoView({behavior:'smooth',block:'center'}); hit.animate([{outline:'2px solid #e22120',outlineOffset:'4px'},{outline:'2px solid transparent',outlineOffset:'4px'}],{duration:1600}); } else toast('No pair matches "'+q+'" on this page'); });
+
+/* mobile menu */
+$('#menuBtn').onclick=()=>{const o=document.body.classList.toggle('menu-open'); $('#menuBtn').setAttribute('aria-expanded',o); $('#menuBtn').textContent=o?'Close':'Menu'};
+
+/* newsletter */
+$('#subForm').addEventListener('submit',e=>{e.preventDefault(); const v=$('#subIn').value.trim(); const ok=/@.+\./.test(v)||v.replace(/\D/g,'').length>=10; $('#subOk').textContent= ok?"You're in. First drop alert is on its way.":'Enter an email or a 10-digit number.'; });
+
+/* rails: drag on desktop, native swipe on touch, progress bar */
+$$('.rail').forEach(r=>{
+  const bar=r.parentElement.querySelector('.prog i');
+  const upd=()=>{ const m=r.scrollWidth-r.clientWidth; const vis=Math.min(1,r.clientWidth/r.scrollWidth); bar.style.width=(vis*100)+'%'; bar.style.transform=`translate3d(${m?(r.scrollLeft/m)*(100/vis-100):0}%,0,0)`; };
+  r.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true}); addEventListener('resize',upd); upd();
+  r.parentElement.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>r.scrollBy({left:+b.dataset.dir*r.clientWidth*.8,behavior:'smooth'}));
+  if(matchMedia('(hover:hover)').matches){ let down=false,sx=0,sl=0,moved=0;
+    r.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse')return; down=true;moved=0;sx=e.clientX;sl=r.scrollLeft; });
+    addEventListener('pointermove',e=>{ if(!down)return; const dx=e.clientX-sx; moved=Math.abs(dx); if(moved>4){r.classList.add('drag'); r.scrollLeft=sl-dx;} });
+    addEventListener('pointerup',()=>{ if(!down)return; down=false; setTimeout(()=>r.classList.remove('drag'),0); });
+  }
+});
+
+/* ---- smooth scroll (Lenis) ---- */
+let lenis=null;
+if(!reduce && window.Lenis){ lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,wheelMultiplier:1,touchMultiplier:1.4});
+  function raf(t){ lenis.raf(t); requestAnimationFrame(raf) } requestAnimationFrame(raf);
+  $$('.rail,.lines').forEach(el=>el.setAttribute('data-lenis-prevent-wheel','')); }
+const hdrH=()=>$('#hdr').offsetHeight;
+
+/* header state, hero parallax, nav highlight — one rAF per frame */
+const hdr=$('#hdr'), hero=$('.hero'), heroImg=$('.hero img');
+const secs=$$('#row2 a').map(a=>[a,document.querySelector(a.getAttribute('href'))]).filter(x=>x[1]);
+let ticking=false;
+function frame(){ ticking=false; const y=scrollY; hdr.classList.toggle('scrolled',y>40);
+  if(!reduce && y<hero.offsetHeight+200){ const k=y/hero.offsetHeight; wm.style.transform=`translate3d(0,calc(-50% + ${y*.3}px),0)`; wm.style.opacity=Math.max(0,1-k*1.15); heroImg.style.translate=`0 ${y*.18}px`; }
+  const mid=y+innerHeight*.35; let cur=null; secs.forEach(([a,s])=>{ if(s.offsetTop<=mid) cur=a; }); secs.forEach(([a])=>a.classList.toggle('on',a===cur)); }
+const onScroll=()=>{ if(!ticking){ ticking=true; requestAnimationFrame(frame) } };
+addEventListener('scroll',onScroll,{passive:true}); frame();
+
+/* reveals */
+const fire=el=>el.classList.add('go');
+let io=null;
+if(reduce||!('IntersectionObserver' in window)){ $$('.sh,.up').forEach(fire) }
+else{ io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ const el=en.target; const host=el.closest('.grid4,.grid6,.rail'); const d=host?Math.min(5,[...host.children].indexOf(el.closest('.prod')))*90:0; setTimeout(()=>fire(el),d); io.unobserve(el)} }),{rootMargin:'0px 0px -6% 0px'});
+  $$('.sh,.up').forEach(el=>io.observe(el)); }
+function revealNow(scope){ scope.querySelectorAll('.sh,.up').forEach(el=> io? io.observe(el) : fire(el)) }
+
+/* load sequence */
+const go=()=>{ document.body.classList.add('loaded'); };
+if(heroImg.complete) requestAnimationFrame(go); else { heroImg.addEventListener('load',go); heroImg.addEventListener('error',go); setTimeout(go,1600); }
+
+/* IST clock */
+const pad=n=>String(n).padStart(2,'0');
+const clk=()=>{const d=new Date(Date.now()+(330+new Date().getTimezoneOffset())*60000); $('#clock').textContent='Mumbai '+pad(d.getHours())+':'+pad(d.getMinutes())+' IST · India (INR ₹)'}; clk(); setInterval(clk,30000);
+})();
+</script>
+</body>
+</html>
